@@ -1,0 +1,45 @@
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jason3-downloader"
+version = "1.0.0"
+description = "Download Jason-3 Satellite Data"
+readme = "README.md"
+authors = [{ name = "Aman Bagrecha", email = "abc@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["jason3", "satellite", "remote-sensing"]
+dependencies = ["requests", 'tomli; python_version < "3.11"']
+requires-python = ">=3.7"
+
+    [project.optional-dependencies]
+    build = ["build", "twine"]
+    dev   = ["black", "bumpver", "mypy", "pytest"]
+
+    [project.scripts]
+    jason3 = "jason3.__main__:main"
+
+    [project.urls]
+    repository    = "https://github.com/amanbagrecha/jason3"
+
+[tool.bumpver]
+current_version = "1.0.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message  = "bump version {old_version} -> {new_version}"
+commit          = true
+tag             = true
+push            = false
+
+    [tool.bumpver.file_patterns]
+    "pyproject.toml" = [
+        'current_version = "{version}"',
+        'version = "{version}"',
+    ]
+    "src/reader/__init__.py" = ["{version}"]
+    "src/reader/__main__.py" = ["- realpython-reader v{version}"]
